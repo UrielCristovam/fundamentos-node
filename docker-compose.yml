@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest #essa imagem é como se fosse uma receita que já vem com os comandos exatos para instalar o postgres em um linux zerado
+    ports:      #diz que quando eu acessar a porta 5432, eu estou acessando a porta 5432 do container
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data #isso é um sistema de storage, mesmo que eu desligue o container, os dados vão continuar salvos no meu computador
+
+  redis:
+      image: redis:latest
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - "6379:6379"
+      volumes:
+        - redis_data:/data
+  
+volumes:
+  polls_pg_data:
+  polls_redis_data: 
